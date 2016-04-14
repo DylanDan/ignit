@@ -11,6 +11,8 @@
                 <bean class="org.apache.ignite.configuration.CacheConfiguration">
                 	<property name="name" value="dxCache"></property>
                     <property name="atomicityMode" value="ATOMIC"/>
+                    <property name="cacheMode" value="PARTITIONED"/>
+                    <property name="backups" value="1"/>
                 </bean>
             </list>
         </property>
