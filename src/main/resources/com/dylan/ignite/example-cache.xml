@@ -18,21 +18,13 @@
         <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
             <!-- Initial local port to listen to. -->
             <property name="localPort" value="48500"/>
-
             <!-- Changing local port range. This is an optional action. -->
             <property name="localPortRange" value="20"/>
-
             <!-- Setting up IP finder for this cluster -->
             <property name="ipFinder">
                 <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
                     <property name="addresses">
                         <list>
-                            <!--
-                                Addresses and port range of the nodes from the first
-                                cluster.
-                                127.0.0.1 can be replaced with actual IP addresses or
-                                host names. Port range is optional.
-                            -->
                             <value>127.0.0.1:48500..48520</value>
                         </list>
                     </property>
