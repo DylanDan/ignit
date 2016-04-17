@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /build/
 .gradle/
 .settings/
@@ -8,3 +9,13 @@ gradlew
 gradlew.bat
 gradle
 
+=======
+.gradle/
+.settings/
+bin/
+.classpath
+.project
+gradlew
+gradlew.bat
+gradle
+>>>>>>> 7ea61f3e865a0db1fa566e205508b21ea093b9ec
