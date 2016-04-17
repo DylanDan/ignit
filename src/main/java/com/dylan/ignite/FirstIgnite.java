@@ -1,57 +1,51 @@
 package com.dylan.ignite;
 
-import java.util.Iterator;
-
-import javax.cache.Cache.Entry;
-
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
-import org.apache.ignite.IgniteDataStreamer;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.cache.CachePeekMode;
-//import org.apache.ignite.cache.CachePeekMode;
-//import org.apache.ignite.configuration.IgniteConfiguration;
-import org.apache.ignite.cache.store.CacheStore;
+import org.springframework.core.annotation.Order;
+
+import com.dylan.ignite.bo.MyOrder;
+import com.dylan.ignite.bo.OrderFactoty;
+
 
 public class FirstIgnite {
 	
 	public static void main(String[] args) {
 		
 		Ignite ignite = Ignition.start("com/dylan/ignite/example-cache.xml");
-		IgniteDataStreamer<Integer, String> stmr =  ignite.dataStreamer("dxCache");
-		stmr.allowOverwrite(true);
-//		stmr.receiver(rcvr);
-		 for (int i = 0; i < 100000; i++)
-		        stmr.addData(i, Integer.toString(i));
+//		IgniteDataStreamer<Integer, String> stmr =  ignite.dataStreamer("dxCache");
+//		stmr.allowOverwrite(true);
+////		stmr.receiver(rcvr);
 		
 //		Ignite ignite = Ignition.ignite();
 		
-		IgniteCache<Integer, String> cache = ignite.cache("dxCache");  //getOrCreateCache("myCache");//ignite.cache("myCache");
+		IgniteCache<String,MyOrder> cache = ignite.cache("dxCache");
+		
+		
 		
 		System.out.println(cache.size(CachePeekMode.PRIMARY));
-		for (int i = 0; i < 10; i++)
-	        cache.putIfAbsent(i, Integer.toString(i));
 		
-		Iterator<Entry<Integer, String>> it = cache.iterator();
-		while(it.hasNext()){
-			Entry<Integer, String> item = it.next();
-			System.out.println("Got [key=" + item.getKey() + ", val=" + item.getValue() + ']');
+		
+		OrderFactoty of = new OrderFactoty();
+		for (int i = 0; i < 10000; i++){
+			
+			MyOrder order = of.create();
+			
+			cache.put(order.getOrderId(),order);
+			System.out.println("put ["+order.getOrderId()+"] into cache");
 		}
-		cache.rebalance();
-		System.out.println(cache.size(CachePeekMode.PRIMARY));
-		System.out.println(cache.size(CachePeekMode.NEAR));
-	    System.out.println(cache.size(CachePeekMode.ALL));
-	    System.out.println(cache.size(CachePeekMode.BACKUP));
-	    System.out.println(cache.localSize());
+		
 	    new Thread(new Monitor(cache)).start();
 	}
 	
 
 	static class Monitor implements Runnable{
 		
-		IgniteCache<Integer, String> m_cache;
+		IgniteCache<String,MyOrder> m_cache;
 		
-		public Monitor(IgniteCache<Integer, String> p_cache){
+		public Monitor(IgniteCache<String,MyOrder> p_cache){
 			m_cache = p_cache;
 		}
 		
