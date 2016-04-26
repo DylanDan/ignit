@@ -27,15 +27,15 @@ public class FirstIgnite {
 		
 		System.out.println(cache.size(CachePeekMode.PRIMARY));
 		
-		
-		OrderFactoty of = new OrderFactoty();
+		cache.loadCache(null, null);
+/*		OrderFactoty of = new OrderFactoty();
 		for (int i = 0; i < 10000; i++){
 			
 			MyOrder order = of.create();
 			
 			cache.put(order.getOrderId(),order);
 			System.out.println("put ["+order.getOrderId()+"] into cache");
-		}
+		}*/
 		
 	    new Thread(new Monitor(cache)).start();
 	}

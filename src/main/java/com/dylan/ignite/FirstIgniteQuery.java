@@ -76,8 +76,8 @@ public class FirstIgniteQuery {
 		
 		System.out.println(MyOrder.class);
 		
-//		FirstIgniteQuery fiq = new FirstIgniteQuery();
-//		fiq.SqlFieldsQuery();
+		FirstIgniteQuery fiq = new FirstIgniteQuery();
+		fiq.sqlQuery();
 //		fiq.stop();	
 	}
 }
