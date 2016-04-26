@@ -1,3 +1,4 @@
+/build/
 .gradle/
 .settings/
 bin/
@@ -6,3 +7,5 @@ bin/
 gradlew
 gradlew.bat
 gradle
+.log
+
