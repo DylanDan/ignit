@@ -5,6 +5,12 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+    
+        <property name="gridLogger">
+		    <bean class="org.apache.ignite.logger.log4j.Log4JLogger">
+		        <constructor-arg type="java.lang.String" value="../config/ignite-log4j.xml"/>
+		    </bean>
+		</property>
         <property name="cacheConfiguration">
             <list>
                 <!-- Partitioned cache example configuration (Atomic mode). -->

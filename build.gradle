@@ -25,6 +25,7 @@ dependencies {
     compile 'org.apache.ignite:ignite-core:1.5.0.final'
     compile 'org.apache.ignite:ignite-spring:1.5.0.final'
     compile 'org.apache.ignite:ignite-indexing:1.5.0.final'
+    compile 'org.apache.ignite:ignite-log4j:1.5.0.final'
 }
 
 //test {

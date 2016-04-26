@@ -14,7 +14,7 @@ import org.apache.ignite.cache.query.SqlQuery;
 import com.dylan.ignite.bo.MyOrder;
 
 
-public class FirstIgniteQuery {
+public class FirstIgniteQuery<K,V> {
 	
 	
 	private Ignite ignite;
@@ -38,9 +38,9 @@ public class FirstIgniteQuery {
 		}
 	}
 	
-	public void sqlQuery(){
-		IgniteCache<String,MyOrder> cache = ignite.cache("dxCache");
-		SqlQuery sql = new SqlQuery(MyOrder.class, "vloum > ?");
+	public void sqlQuery(Class clazz){
+		IgniteCache<K,V> cache = ignite.cache("dxCache");
+		SqlQuery sql = new SqlQuery(clazz, "vloum > ?");
 		QueryCursor<Entry<String, MyOrder>> cursor = null;
 		
 		try{
