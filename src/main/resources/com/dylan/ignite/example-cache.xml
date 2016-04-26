@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+    
+        <property name="gridLogger">
+		    <bean class="org.apache.ignite.logger.log4j.Log4JLogger">
+		        <constructor-arg type="java.lang.String" value="../config/ignite-log4j.xml"/>
+		    </bean>
+		</property>
+        <property name="cacheConfiguration">
+            <list>
+                <!-- Partitioned cache example configuration (Atomic mode). -->
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                	<property name="name" value="dxCache"/>
+                    <property name="atomicityMode" value="ATOMIC"/>
+                    <property name="cacheMode" value="PARTITIONED"/>
+                    <property name="backups" value="1"/>
+                    <property name="queryEntities">
+			        <list>
+			            <bean class="org.apache.ignite.cache.QueryEntity">
+			                <property name="keyType" value="java.lang.String"/>
+			                <property name="valueType" value="com.dylan.ignite.bo.MyOrder"/>
+			                <property name="fields">
+			                    <map>
+			                        <entry key="vloum" value="java.lang.Integer"/>
+			                        <entry key="price" value="java.lang.Double"/>
+			                        <entry key="orderId" value="java.lang.String"/>
+			                    </map>
+			                </property>
+			                <property name="indexes">
+			                    <list>
+			                        <bean class="org.apache.ignite.cache.QueryIndex">
+			                            <constructor-arg value="orderId"/>
+			                        </bean>			                 	                 
+			                    </list>
+			                </property>
+			            </bean>
+			        </list>
+			    </property>
+              </bean>
+            </list>
+        </property>
+        <property name="discoverySpi">
+        <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+            <!-- Initial local port to listen to. -->
+            <property name="localPort" value="48500"/>
+
+            <!-- Changing local port range. This is an optional action. -->
+            <property name="localPortRange" value="20"/>
+
+            <!-- Setting up IP finder for this cluster -->
+            <property name="ipFinder">
+                <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder">
+                    <property name="addresses">
+                        <list>
+                            <!--
+                                Addresses and port range of the nodes from the first
+                                cluster.
+                                127.0.0.1 can be replaced with actual IP addresses or
+                                host names. Port range is optional.
+                            -->
+                            <value>127.0.0.1:48500..48520</value>
+                        </list>
+                    </property>
+                </bean>
+            </property>
+        </bean>
+    </property>
+    <property name="communicationSpi">
+        <bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
+            <property name="localPort" value="48100"/>
+        </bean>
+    </property>
+    </bean>
+</beans>

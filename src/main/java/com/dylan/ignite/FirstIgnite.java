@@ -1,10 +1,13 @@
 package com.dylan.ignite;
 
+import java.net.URL;
+
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.cache.CachePeekMode;
-import org.springframework.core.annotation.Order;
+import org.apache.ignite.configuration.IgniteConfiguration;
+import org.apache.ignite.internal.util.typedef.internal.U;
 
 import com.dylan.ignite.bo.MyOrder;
 import com.dylan.ignite.bo.OrderFactoty;
@@ -14,7 +17,12 @@ public class FirstIgnite {
 	
 	public static void main(String[] args) {
 		
+		
+		IgniteConfiguration cfg = new IgniteConfiguration();
+		URL xml = U.resolveIgniteUrl("config/custom-log4j.xml");	
+		
 		Ignite ignite = Ignition.start("com/dylan/ignite/example-cache.xml");
+		
 //		IgniteDataStreamer<Integer, String> stmr =  ignite.dataStreamer("dxCache");
 //		stmr.allowOverwrite(true);
 ////		stmr.receiver(rcvr);
