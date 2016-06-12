@@ -31,8 +31,6 @@ public class FirstIgnite {
 		
 		IgniteCache<String,MyOrder> cache = ignite.cache("dxCache");
 		
-		
-		
 		System.out.println(cache.size(CachePeekMode.PRIMARY));
 		
 		cache.loadCache(null, null);
@@ -68,7 +66,7 @@ public class FirstIgnite {
 				System.out.println(m_cache.localSize());
 				System.out.println("***********************end******************************");
 				try {
-					Thread.sleep(2*1000);
+					Thread.sleep(10*1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

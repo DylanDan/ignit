@@ -6,6 +6,7 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
     
+    
         <property name="gridLogger">
 		    <bean class="org.apache.ignite.logger.log4j.Log4JLogger">
 		        <constructor-arg type="java.lang.String" value="../config/ignite-log4j.xml"/>
@@ -19,6 +20,11 @@
                     <property name="atomicityMode" value="ATOMIC"/>
                     <property name="cacheMode" value="PARTITIONED"/>
                     <property name="backups" value="1"/>
+                    <property name="cacheStoreFactory">
+            			<bean class="javax.cache.configuration.FactoryBuilder" factory-method="factoryOf">
+              				<constructor-arg value="com.pingan.pilot.ignite.store.impl.CassandraCacheStore"/>
+            			</bean>
+          			</property>
                     <property name="queryEntities">
 			        <list>
 			            <bean class="org.apache.ignite.cache.QueryEntity">

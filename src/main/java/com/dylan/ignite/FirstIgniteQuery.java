@@ -44,7 +44,7 @@ public class FirstIgniteQuery<K,V> {
 		QueryCursor<Entry<String, MyOrder>> cursor = null;
 		
 		try{
-			cursor = cache.query(sql.setArgs(20));
+			cursor = cache.query(sql.setArgs(0));
 			for (Entry<String, MyOrder> e : cursor)
 			   System.out.println(e.getValue().getVloum());
 		}finally{
@@ -77,7 +77,9 @@ public class FirstIgniteQuery<K,V> {
 		System.out.println(MyOrder.class);
 		
 		FirstIgniteQuery fiq = new FirstIgniteQuery();
+		System.out.println("************************************");
 		fiq.sqlQuery(MyOrder.class);
+		System.out.println("************************************");
 //		fiq.stop();	
 	}
 }
